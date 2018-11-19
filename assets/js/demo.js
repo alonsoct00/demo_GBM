@@ -1,4 +1,3 @@
-
 //Login
 var acceso_ = false;
 
@@ -14,8 +13,7 @@ $('.login').on('submit', function(e) {
         $this.addClass('ok');
         $state.html('Bienvenido!');
         setTimeout(function() {
-            $(location).attr('href','chart.html');
-
+            $(location).attr('href', 'chart.html');
         }, 2000);
     }, 3000);
 });
@@ -24,27 +22,27 @@ $('.login').on('submit', function(e) {
 //Gráfica 
 $(function() {
 
-  //Llamar el Json desde una api (no pude traerlo desde la url que me proporcionaron)
+    //Llamar el Json desde una api (no pude traerlo desde la url que me proporcionaron)
     $.getJSON('https://api.myjson.com/bins/f0dfe', function(data) {
 
         //parsear el json para visualizarlo con el plugin declarando mis variables en arreglos vacíos
         var chartPrecio = [];
         var chartTiempo = [];
-//Variables para validar
+        //Variables para validar
         var PrecioInicial;
         var ok = false;
 
-//verificar el resultado del json en la tabla
+        //verificar el resultado del json en la tabla
         if (data.resultObj != null) {
 
             PrecioInicial = data.resultObj[0].Precio;
-//verificar cada objeto..
+            //verificar cada objeto..
             $.each(data.resultObj, function() {
-            	//si precio cambia 
+                //si precio cambia 
                 if (this.Precio != PrecioInicial || ok) {
-                //actualizar precio	
+                    //actualizar precio 
                     chartPrecio.push(this.Precio);
-                //actualizar fecha
+                    //actualizar fecha
                     chartTiempo.push(this.Fecha.substring(0, 20));
                     ok = true;
                 }
@@ -56,7 +54,7 @@ $(function() {
 
 
 
-//Ejecutar el plugin highcharts para visualizar los datos 
+        //Ejecutar el plugin highcharts para visualizar los datos 
         $('#theChart').highcharts({
             chart: {
                 type: 'areaspline',
